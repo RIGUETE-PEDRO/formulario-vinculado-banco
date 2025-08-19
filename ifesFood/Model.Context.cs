@@ -26,5 +26,6 @@ namespace ifesFood
         }
     
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Carousel> Carousels { get; set; }
     }
 }

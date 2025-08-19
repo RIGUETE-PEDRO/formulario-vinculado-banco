@@ -12,20 +12,13 @@ namespace ifesFood
     using System;
     using System.Collections.Generic;
     
-    public partial class Produto
+    public partial class Carousel
     {
-        public Produto()
-        {
-            this.Carousels = new HashSet<Carousel>();
-        }
-    
         public int Id { get; set; }
-        public string Nome { get; set; }
+        public string Titulo { get; set; }
         public string Descricao { get; set; }
-        public string Imagem { get; set; }
-        public Nullable<decimal> Preco { get; set; }
-        public Nullable<System.DateTime> DataCadastro { get; set; }
+        public int ProdutoID { get; set; }
     
-        public virtual ICollection<Carousel> Carousels { get; set; }
+        public virtual Produto Produto { get; set; }
     }
 }

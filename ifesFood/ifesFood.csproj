@@ -73,6 +73,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\Default.aspx" />
+    <Content Include="admin\FrmCarousel.aspx" />
+    <Content Include="admin\FrmProduto.aspx" />
     <Content Include="App_Data\ifesFoodDB.mdf" />
     <Content Include="App_Data\ifesFoodDB_log.ldf">
       <DependentUpon>ifesFoodDB.mdf</DependentUpon>
@@ -82,6 +85,8 @@
     <Content Include="Default.aspx" />
     <Content Include="img\carousel02.png" />
     <Content Include="img\carousel03.jpg" />
+    <Content Include="img\delete.svg" />
+    <Content Include="img\edit.svg" />
     <Content Include="img\lunch-01.svg" />
     <Content Include="img\lunch-02.svg" />
     <Content Include="img\lunch-03.svg" />
@@ -91,6 +96,7 @@
     <Content Include="img\pratos\prato-07.jpg" />
     <Content Include="img\pratos\prato-08.jpg" />
     <Content Include="img\pratos\prato-09.jpg" />
+    <Content Include="img\view.svg" />
     <Content Include="js\bootstrap.bundle.js" />
     <Content Include="Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -105,6 +111,31 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\CarouselDAO.cs" />
+    <Compile Include="admin\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\FrmCarousel.aspx.cs">
+      <DependentUpon>FrmCarousel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\FrmCarousel.aspx.designer.cs">
+      <DependentUpon>FrmCarousel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\FrmProduto.aspx.cs">
+      <DependentUpon>FrmProduto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\FrmProduto.aspx.designer.cs">
+      <DependentUpon>FrmProduto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Carousel.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -156,6 +187,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
