@@ -40,18 +40,18 @@
             <div>
                 <p>
                     <label>Nome do produto:</label>
-                    <input type="text" id="txtNome" runat="server" required />
+                    <input type="text" id="txtNome" runat="server" />
                     <span class="required">*</span>
                 </p>
 
                 <p>
                     <label>Descrição:</label>
-                    <input type="text" id="txtDescricao" runat="server" required />
+                    <textarea id="txtDescricao" runat="server" rows="3"></textarea>
                     <span class="required">*</span>
                 </p>
                 <p>
                     <label>imagem:</label>
-                    <input type="text" id="txtImagem" runat="server" required />
+                    <input type="text" id="txtImagem" runat="server" />
                     <span class="required">*</span>
                 </p>
                 <p>
@@ -67,46 +67,62 @@
                     <label id="lblMensagem" runat="server"></label>
                 </p>
             </div>
+
+
+            <section>
+
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">COD</th>
+                            <th scope="col">PRODUTO</th>
+                            <th scope="col">PREÇO</th>
+                            <th scope="col">DATA CADASTRO</th>
+                            <th scope="col">AÇÃOES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <%--repetir--%>
+                        <asp:ListView runat="server" ID="lvProdutos" OnItemCommand="lvProdutos_ItemCommand">
+                            <ItemTemplate>
+                                <tr>
+
+                                    <td><%# Eval("Id") %></td>
+                                    <td><%# Eval("Nome") %></td>
+                                    <td><%# Eval("Preco") %></td>
+                                    <td><%# Eval("DataCadastro") %></td>
+                                    <td>
+                                       
+
+                                        <asp:ImageButton ImageUrl="../img/view.svg" runat="server"
+                                            CommandName="Visualizar"
+                                            CommandArgument='<%# Eval("Id") %>'
+                                            AlternateText="visualizar produto"
+                                            />
+
+                                        <asp:ImageButton ImageUrl="../img/edit.svg" runat="server"
+                                            CommandName="Editar"
+                                            CommandArgument='<%# Eval("Id") %>'
+                                            AlternateText="Editar produto"
+                                             />
+
+                                        <asp:ImageButton ImageUrl="../img/delete.svg" runat="server"
+                                            CommandName="Deletar"
+                                            CommandArgument='<%# Eval("Id") %>'
+                                            AlternateText="apagar produto"
+                                            OnClientClick="if(confirm('Deseja realmente excluir?')){}else{alert('operação cancelada!');}" />
+                                    </td>
+                                </tr>
+
+                            </ItemTemplate>
+                        </asp:ListView>
+
+                    </tbody>
+                </table>
+
+            </section>
         </form>
-
-        <section>
-
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">COD</th>
-                        <th scope="col">PRODUTO</th>
-                        <th scope="col">PREÇO</th>
-                        <th scope="col">DATA CADASTRO</th>
-                        <th scope="col">AÇÃOES</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <%--repetir--%>
-                    <asp:ListView runat="server" ID="lvProdutos">
-                        <ItemTemplate>
-                            <tr>
-                                
-                                <td><%# Eval("Id") %></td>
-                                <td><%# Eval("Nome") %></td>
-                                <td><%# Eval("Preco") %></td>
-                                <td><%# Eval("DataCadastro") %></td>
-                                <td>
-                                    <img src="../img/view.svg" />
-                                    <img src="../img/edit.svg" />
-                                    <img src="../img/delete.svg" />
-                                </td>
-                            </tr>
-
-                        </ItemTemplate>
-                    </asp:ListView>
-
-                </tbody>
-            </table>
-
-        </section>
-
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 

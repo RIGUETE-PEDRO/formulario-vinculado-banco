@@ -9,12 +9,36 @@ namespace ifesFood.admin
 {
     public partial class FrmProduto : System.Web.UI.Page
     {
+        private string mensagem;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack) 
+            if (!Page.IsPostBack)
             {
                 AtualizarLvProdutos(ProdutoDAO.ListarProdutos());
+
+                string cod = Request.QueryString["cod"];
+                if (cod != null)
+                {
+                    int id = int.Parse(cod);
+                    Produto produto = ProdutoDAO.VisualizarProduto(id);
+                    MostrarDadosProduto(produto);
+                }
             }
+        }
+
+        private void MostrarDadosProduto(Produto produto)
+        {
+            txtDescricao.Value = produto.Descricao;
+            txtNome.Value = produto.Nome;
+            txtImagem.Value = produto.Imagem;
+            txtPreco.Value = produto.Preco.ToString();
+
+
+            txtDescricao.Disabled = true;
+            txtNome.Disabled = true;
+            txtImagem.Disabled = true;
+            txtPreco.Disabled = true;
         }
 
         private void AtualizarLvProdutos(List<Produto> produtos)
@@ -36,10 +60,41 @@ namespace ifesFood.admin
 
             String mensagem = ProdutoDAO.CadastrarProduto(produto);
 
-            lblMensagem.InnerText = mensagem;
+            LimparCampos(mensagem);
+
+
 
             AtualizarLvProdutos(ProdutoDAO.ListarProdutos());
 
+
+        }
+
+        private void LimparCampos(string mesagem)
+        {
+            lblMensagem.InnerText = mensagem;
+            txtNome.Value = "";
+            txtDescricao.Value = "";
+            txtImagem.Value = "";
+            txtPreco.Value = "";
+        }
+
+        protected void lvProdutos_ItemCommand(object sender, ListViewCommandEventArgs e)
+        {
+            string command = e.CommandName;
+            int id = Convert.ToInt32(e.CommandArgument);
+            if (command == "Deletar")
+            {
+                string mensagem = ProdutoDAO.ExcluirProduto(id);
+                AtualizarLvProdutos(ProdutoDAO.ListarProdutos());
+                lblMensagem.InnerText = mensagem;
+            }
+            else if (command == "Visualizar")
+            {
+                Response.Redirect("~/admin/FrmProduto.aspx?cod=" + id);
+            }
+            else if (command == "Editar")
+            {
+            }
         }
     }
 }
