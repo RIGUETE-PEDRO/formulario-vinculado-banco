@@ -51,6 +51,15 @@ namespace ifesFood.admin
         protected global::System.Web.UI.WebControls.DropDownList DdlProdutos;
 
         /// <summary>
+        /// Controle cbDestaque.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox cbDestaque;
+
+        /// <summary>
         /// Controle btnCadastrar.
         /// </summary>
         /// <remarks>
@@ -67,5 +76,14 @@ namespace ifesFood.admin
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblMensagem;
+
+        /// <summary>
+        /// Controle lvCarousel.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView lvCarousel;
     }
 }

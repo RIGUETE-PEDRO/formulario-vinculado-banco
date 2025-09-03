@@ -50,22 +50,70 @@
                     <input type="text" id="txtDescricao" runat="server" required />
                     <span class="required">*</span>
                 </p>
-              
+
                 <p>
                     <label>Produto:</label>
                     <asp:DropDownList runat="server" ID="DdlProdutos">
-                        
                     </asp:DropDownList>
                 </p>
 
                 <p>
-                    <asp:Button Text="Cadastrar" ID="btnCadastrar" runat="server" class="btn-primary" OnClick="btnCadastrar_Click"/>
+                    <label>Destaque</label>
+                    <input type="checkbox" id="cbDestaque" runat="server" />Sim
+                </p>
+                <p>
+                    <asp:Button Text="Cadastrar" ID="btnCadastrar" runat="server" class="btn-primary" OnClick="btnCadastrar_Click" />
                     <input type="reset" value="Limpar" class="btn-secondary" />
                 </p>
                 <p>
                     <label id="lblMensagem" runat="server"></label>
                 </p>
             </div>
+
+            <section>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Titulo</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Produto</th>
+                            <th scope="col">Destaque</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <asp:ListView runat="server" ID="lvCarousel" OnItemCommand="lvCarousel_ItemCommand">
+                            <ItemTemplate>
+                                <tr>
+                                    <td><%# Eval("Titulo") %></td>
+                                    <td><%# Eval("Descricao") %></td>
+                                    <td><%# Eval("ProdutoID") %></td>
+                                    <td><%# Eval("Destaque") %></td>
+                                    <td>
+                                        <asp:ImageButton ImageUrl="../img/view.svg" runat="server"
+                                            CommandName="Visualizar"
+                                            CommandArgument='<%# Eval("Id") %>'
+                                            AlternateText="visualizar produto" />
+
+                                        <asp:ImageButton ImageUrl="../img/edit.svg" runat="server"
+                                            CommandName="Editar"
+                                            CommandArgument='<%# Eval("Id") %>'
+                                            AlternateText="Editar produto" />
+
+                                        <asp:ImageButton ImageUrl="../img/delete.svg" runat="server"
+                                            CommandName="Deletar"
+                                            CommandArgument='<%# Eval("Id") %>'
+                                            AlternateText="apagar produto"
+                                            OnClientClick="if(confirm('Deseja realmente excluir?')){}else{alert('operação cancelada!');}" />
+                                    </td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:ListView>
+                    </tbody>
+                </table>
+            </section>
+
         </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>

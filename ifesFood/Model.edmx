@@ -13,6 +13,7 @@
           <Property Name="Titulo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Descricao" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="ProdutoID" Type="int" Nullable="false" />
+          <Property Name="Destaque" Type="bit" />
         </EntityType>
         <EntityType Name="Produtos">
           <Key>
@@ -78,6 +79,7 @@
           <Property Name="Descricao" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="ProdutoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Produto" Relationship="ifesFoodDBModel.FK_Carousel_Produto" FromRole="Carousel" ToRole="Produto" />
+          <Property Name="Destaque" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Carousel_Produto">
           <End Type="ifesFoodDBModel.Produto" Role="Produto" Multiplicity="1" />
@@ -112,6 +114,7 @@
           <EntitySetMapping Name="Carousels">
             <EntityTypeMapping TypeName="ifesFoodDBModel.Carousel">
               <MappingFragment StoreEntitySet="Carousel">
+                <ScalarProperty Name="Destaque" ColumnName="Destaque" />
                 <ScalarProperty Name="ProdutoID" ColumnName="ProdutoID" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />

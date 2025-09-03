@@ -30,6 +30,7 @@ namespace ifesFood.admin
         private void MostrarDadosProduto(Produto produto)
         {
             txtDescricao.Value = produto.Descricao;
+            txtDescricao.Value = produto.Descricao;
             txtNome.Value = produto.Nome;
             txtImagem.Value = produto.Imagem;
             txtPreco.Value = produto.Preco.ToString();
@@ -39,6 +40,10 @@ namespace ifesFood.admin
             txtNome.Disabled = true;
             txtImagem.Disabled = true;
             txtPreco.Disabled = true;
+
+            btnCadastrar.Visible = false;
+            btnLimpar.Visible = false;
+            btnAddProduto.Visible = true;
         }
 
         private void AtualizarLvProdutos(List<Produto> produtos)
@@ -46,6 +51,7 @@ namespace ifesFood.admin
             var lista = produtos.OrderByDescending(p => p.Nome);
             lvProdutos.DataSource = lista;
             lvProdutos.DataBind();
+
         }
 
         protected void btnCadastrar_Click(object sender, EventArgs e)
