@@ -13,7 +13,7 @@ namespace ifesFood
             try
             {
                 var ctx = new ifesFoodDBEntities();
-                ctx.Produtos.Add(produto); 
+                ctx.Produtos.Add(produto);
                 ctx.SaveChanges();
 
                 mensagem = "O produto " + produto.Nome +
@@ -31,8 +31,10 @@ namespace ifesFood
 
         public static List<Produto> ListarProdutos()
         {
+            List<Produto> lista = null;
+
             ifesFoodDBEntities ctx = new ifesFoodDBEntities();
-            var lista = ctx.Produtos.ToList();
+            lista = ctx.Produtos.ToList();
 
             return lista;
         }
@@ -45,10 +47,10 @@ namespace ifesFood
             {
                 using (var ctx = new ifesFoodDBEntities())
                 {
-                    Produto produto = 
+                    Produto produto =
                         ctx.Produtos.FirstOrDefault(p => p.Id == id);
                     ctx.Produtos.Remove(produto);
-                    ctx.SaveChanges() ;
+                    ctx.SaveChanges();
                     mensagem = "Produto excluído com sucesso!";
                 }
             }
@@ -76,6 +78,45 @@ namespace ifesFood
             }
 
             return produto;
+        }
+
+        internal static Produto ListarProdutos(int id)
+        {
+            Produto produto = null;
+            using (var ctx = new ifesFoodDBEntities())
+            {
+                produto = ctx.Produtos.FirstOrDefault(
+                    p => p.Id == id
+                );
+            }
+            return produto;
+        }
+
+        internal static string AlterarProduto(Produto produto)
+        {
+            string mensagem = "";
+
+            try
+            {
+                using (var ctx = new ifesFoodDBEntities())
+                {
+                    var produtoBD = ctx.Produtos.FirstOrDefault(
+                        p => p.Id == produto.Id
+                    );
+
+                    produtoBD.Nome = produto.Nome;
+                    produtoBD.Descricao = produto.Descricao;
+                    produtoBD.Imagem = produto.Imagem;
+                    produtoBD.Preco = produto.Preco;
+                    ctx.SaveChanges();
+                    mensagem = "Produto alterado com sucesso!";
+                }
+            }
+            catch (Exception ex)
+            {
+                mensagem = ex.Message;
+            }
+            return mensagem;
         }
     }
 }

@@ -28,7 +28,7 @@ namespace ifesFood.admin
                 usuario.Login = txtLogin.Value;
                 usuario.Email = txtEmail.Value;
                 
-                var senhaCript = 
+                /*var senhaCript =*/ 
                 
 
             }

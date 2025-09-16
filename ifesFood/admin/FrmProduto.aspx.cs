@@ -20,19 +20,31 @@ namespace ifesFood.admin
                 {
                     int id = int.Parse(cod);
                     Produto produto = ProdutoDAO.VisualizarProduto(id);
-                    MostrarDadosProduto(produto);
+                    MostrarDadosProduto(produto,true);
                 }
             }
 
         }
 
-        private void MostrarDadosProduto(Produto produto)
+        private void MostrarDadosProduto(Produto produto, bool visualizar)
         {
+           
             txtDescricao.Value = produto.Descricao;
             txtNome.Value = produto.Nome;
             txtImagem.Value = produto.Imagem;
             txtPreco.Value = produto.Preco.ToString();
+            txtId.Value = produto.Id.ToString();
 
+
+
+            if (visualizar) { DesabilitarCampos(); }
+        
+
+       
+        }
+
+            private void DesabilitarCampos()
+        {
             txtDescricao.Disabled = true;
             txtNome.Disabled = true;
             txtImagem.Disabled = true;
@@ -52,19 +64,51 @@ namespace ifesFood.admin
 
         protected void btnCadastrar_Click(object sender, EventArgs e)
         {
-            Produto produto = new Produto();
+            string mensagem = "";
+            bool alterar = btnCadastrar.Text.ToUpper() == "ALTERAR";
 
+            Produto produto = null;
+            if (!alterar)
+            {
+                produto = new Produto(); 
+            }
+            else
+            {
+                int id = Convert.ToInt32(txtId.Value);
+                produto = ProdutoDAO.ListarProdutos(id);
+            }
+           
             produto.Nome = txtNome.Value;
             produto.Descricao = txtDescricao.Value;
             produto.Imagem = txtImagem.Value;
             produto.Preco = Convert.ToDecimal(txtPreco.Value);
             produto.DataCadastro = DateTime.Now;
 
-            string mensagem = ProdutoDAO.CadastrarProduto(produto);
+
+            if (!alterar)
+            {
+                lblMensagem.InnerText = ProdutoDAO.CadastrarProduto(produto);
+            }
+            else {
+                lblMensagem.InnerText = ProdutoDAO.AlterarProduto(produto);
+
+            }
+           
 
             LimparCampos(mensagem);
 
             AtualizarLvProdutos(ProdutoDAO.ListarProdutos());
+
+            txtDescricao.Value = "";
+            txtImagem.Value = "";
+            txtNome.Value = "";
+            txtPreco.Value = "";
+
+            btnAddProduto.Visible = false;
+            btnCadastrar.Text = "Cadastrar";
+            btnCadastrar.CssClass = "";
+            btnLimpar.CssClass = "btn-secondary";
+
         }
 
         private void LimparCampos(string mensagem)
@@ -80,22 +124,41 @@ namespace ifesFood.admin
             object sender, ListViewCommandEventArgs e)
         {
             string comando = e.CommandName;
-            int id = Convert.ToInt32(e.CommandArgument);
 
-            if (comando == "Deletar")
+            if (e.CommandArgument != null)
             {
-                //Iremos excluir o Produto
-                string mensagem = ProdutoDAO.ExcluirProduto(id);
-                AtualizarLvProdutos(ProdutoDAO.ListarProdutos());
-                lblMensagem.InnerText = mensagem;
+                int id = Convert.ToInt32(e.CommandArgument);
+                Produto produto = null;
+
+                switch (comando)
+                {
+                    case "Deletar":
+                        //Iremos excluir o Produto
+                        string mensagem = ProdutoDAO.ExcluirProduto(id);
+                        AtualizarLvProdutos(ProdutoDAO.ListarProdutos());
+                        lblMensagem.InnerText = mensagem;
+                        break;
+
+                    case "Visualizar":
+                        produto = ProdutoDAO.ListarProdutos(id);
+                        MostrarDadosProduto(produto, true);
+                        break;
+                    case "Editar":
+                        produto = ProdutoDAO.ListarProdutos(id);
+                        MostrarDadosProduto(produto, false);
+                        btnCadastrar.Text = "Alterar";
+                        btnCadastrar.CssClass = "btn btn-warning";
+                        btnLimpar.CssClass = "btn btn-secondary";
+                        btnAddProduto.Visible = true;
+
+                        break;
+
+                    default:
+                        break;
+
+                }
             }
-            else if(comando == "Visualizar")
-            {
-                Response.Redirect("~/admin/FrmProduto.aspx?cod=" + id);
-            }
-            else if (comando == "Editar")
-            {
-            }
+           
         }
     }
 }

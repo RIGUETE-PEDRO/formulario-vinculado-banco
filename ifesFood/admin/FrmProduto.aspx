@@ -72,12 +72,8 @@
 
                 <p>
                     <asp:Button Text="Cadastrar" ID="btnCadastrar" runat="server" class="btn-primary" OnClick="btnCadastrar_Click" />
-
-                    <input type="reset"
-                        value="Limpar"
-                        class="btn-secondary"
-                        id="btnLimpar"
-                        runat="server" />
+<asp:HiddenField ID="txtId" runat="server" />
+                    <asp:Button Text="Limpar" runat="server" ID="btnLimpar" type="reset" class="btn-secondary" />
                 </p>
 
                 <p>
@@ -130,6 +126,7 @@
                                             CommandName="Editar"
                                             CommandArgument='<%# Eval("Id") %>'
                                             AlternateText="Editar produto" />
+                                            
 
                                         <asp:ImageButton ImageUrl="../img/delete.svg" runat="server"
                                             CommandName="Deletar"
