@@ -1,1 +1,0 @@
-﻿INSERT INTO Carousel VALUES ('ARROZ','DOCE',2,0)
