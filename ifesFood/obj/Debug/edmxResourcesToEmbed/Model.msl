@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ifesFoodDBModelStoreContainer" CdmEntityContainer="ifesFoodDBEntities">
+    <EntitySetMapping Name="Produtos">
+      <EntityTypeMapping TypeName="ifesFoodDBModel.Produto">
+        <MappingFragment StoreEntitySet="Produtos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="Imagem" ColumnName="Imagem" />
+          <ScalarProperty Name="Preco" ColumnName="Preco" />
+          <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Carousels">
+      <EntityTypeMapping TypeName="ifesFoodDBModel.Carousel">
+        <MappingFragment StoreEntitySet="Carousel">
+          <ScalarProperty Name="Destaque" ColumnName="Destaque" />
+          <ScalarProperty Name="ProdutoID" ColumnName="ProdutoID" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="ifesFoodDBModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DataUltimoAcesso" ColumnName="DataUltimoAcesso" />
+          <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+          <ScalarProperty Name="Senha" ColumnName="Senha" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="NomeUsuario" ColumnName="NomeUsuario" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

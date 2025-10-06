@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ifesFoodDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Carousel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProdutoID" Type="int" Nullable="false" />
+          <Property Name="Destaque" Type="bit" />
+        </EntityType>
+        <EntityType Name="Produtos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="255" />
+          <Property Name="Imagem" Type="nvarchar" MaxLength="150" />
+          <Property Name="Preco" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="DataCadastro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomeUsuario" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Senha" Type="varchar" MaxLength="260" Nullable="false" />
+          <Property Name="DataCadastro" Type="datetime" Nullable="false" />
+          <Property Name="DataUltimoAcesso" Type="datetime" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Carousel_Produto">
+          <End Role="Produtos" Type="Self.Produtos" Multiplicity="1" />
+          <End Role="Carousel" Type="Self.Carousel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produtos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Carousel">
+              <PropertyRef Name="ProdutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ifesFoodDBModelStoreContainer">
+          <EntitySet Name="Carousel" EntityType="Self.Carousel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produtos" EntityType="Self.Produtos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Carousel_Produto" Association="Self.FK_Carousel_Produto">
+            <End Role="Produtos" EntitySet="Produtos" />
+            <End Role="Carousel" EntitySet="Carousel" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ifesFoodDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Imagem" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Preco" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DataCadastro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Carousels" Relationship="ifesFoodDBModel.FK_Carousel_Produto" FromRole="Produto" ToRole="Carousel" />
+        </EntityType>
+        <EntityContainer Name="ifesFoodDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Produtos" EntityType="Self.Produto" />
+          <EntitySet Name="Carousels" EntityType="ifesFoodDBModel.Carousel" />
+          <AssociationSet Name="FK_Carousel_Produto" Association="ifesFoodDBModel.FK_Carousel_Produto">
+            <End Role="Produto" EntitySet="Produtos" />
+            <End Role="Carousel" EntitySet="Carousels" />
+          </AssociationSet>
+          <EntitySet Name="Usuarios" EntityType="ifesFoodDBModel.Usuario" />
+        </EntityContainer>
+        <EntityType Name="Carousel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProdutoID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produto" Relationship="ifesFoodDBModel.FK_Carousel_Produto" FromRole="Carousel" ToRole="Produto" />
+          <Property Name="Destaque" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_Carousel_Produto">
+          <End Type="ifesFoodDBModel.Produto" Role="Produto" Multiplicity="1" />
+          <End Type="ifesFoodDBModel.Carousel" Role="Carousel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Carousel">
+              <PropertyRef Name="ProdutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomeUsuario" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Senha" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="DataCadastro" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataUltimoAcesso" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ifesFoodDBModelStoreContainer" CdmEntityContainer="ifesFoodDBEntities">
+          <EntitySetMapping Name="Produtos">
+            <EntityTypeMapping TypeName="ifesFoodDBModel.Produto">
+              <MappingFragment StoreEntitySet="Produtos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Imagem" ColumnName="Imagem" />
+                <ScalarProperty Name="Preco" ColumnName="Preco" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carousels">
+            <EntityTypeMapping TypeName="ifesFoodDBModel.Carousel">
+              <MappingFragment StoreEntitySet="Carousel">
+                <ScalarProperty Name="Destaque" ColumnName="Destaque" />
+                <ScalarProperty Name="ProdutoID" ColumnName="ProdutoID" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="ifesFoodDBModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DataUltimoAcesso" ColumnName="DataUltimoAcesso" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="NomeUsuario" ColumnName="NomeUsuario" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

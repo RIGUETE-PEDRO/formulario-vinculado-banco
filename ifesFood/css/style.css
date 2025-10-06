@@ -1,0 +1,52 @@
+
+
+.menu-principal{
+    display: flex;
+    align-items: center;
+    padding-right: 1em;
+}
+
+
+
+.carousel-item {
+    height: 25em;
+}
+
+    .carousel-item-img{
+        width: 100%;    
+        object-fit: cover;        
+        object-position: 0 10%;
+    }
+
+.card{
+    width: 95%;
+}
+.card-img-prato{
+   height: 10em;
+   object-fit: cover;
+   object-position: 0 80%;
+}
+
+
+
+.carousel-item-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.card-img-prato {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+
+.frm-cadastro p label{
+    display: block;
+}
+
+.frm-cadastro .required{
+    color: #ff0000;
+    font-weight: 500;
+}

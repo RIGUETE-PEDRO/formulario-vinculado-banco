@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ifesFoodDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Carousel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Titulo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Descricao" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProdutoID" Type="int" Nullable="false" />
+    <Property Name="Destaque" Type="bit" />
+  </EntityType>
+  <EntityType Name="Produtos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Descricao" Type="nvarchar" MaxLength="255" />
+    <Property Name="Imagem" Type="nvarchar" MaxLength="150" />
+    <Property Name="Preco" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="DataCadastro" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NomeUsuario" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Login" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Senha" Type="varchar" MaxLength="260" Nullable="false" />
+    <Property Name="DataCadastro" Type="datetime" Nullable="false" />
+    <Property Name="DataUltimoAcesso" Type="datetime" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Carousel_Produto">
+    <End Role="Produtos" Type="Self.Produtos" Multiplicity="1" />
+    <End Role="Carousel" Type="Self.Carousel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produtos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Carousel">
+        <PropertyRef Name="ProdutoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ifesFoodDBModelStoreContainer">
+    <EntitySet Name="Carousel" EntityType="Self.Carousel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Produtos" EntityType="Self.Produtos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Carousel_Produto" Association="Self.FK_Carousel_Produto">
+      <End Role="Produtos" EntitySet="Produtos" />
+      <End Role="Carousel" EntitySet="Carousel" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
